@@ -1,10 +1,14 @@
 package com.example.demo.service;
 
-import org.springframework.stereotype.Service;
 import pojo.Emp;
+import pojo.EmpQueryParam;
 import pojo.PageResult;
+
+import java.time.LocalDate;
 
 
 public interface EmpService {
-    PageResult<Emp> page(Integer page, Integer pageSize);
+    PageResult<Emp> page(EmpQueryParam empQueryParam);
+
+    void add(Emp emp);
 }
