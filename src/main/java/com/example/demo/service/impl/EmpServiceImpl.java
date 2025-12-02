@@ -1,17 +1,17 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.mapper.EmpExprMapper;
+import com.example.demo.mapper.EmpLogMapper;
 import com.example.demo.mapper.EmpMapper;
+import com.example.demo.service.EmpLogService;
 import com.example.demo.service.EmpService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
-import pojo.Emp;
-import pojo.EmpExpr;
-import pojo.EmpQueryParam;
-import pojo.PageResult;
+import pojo.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,6 +24,9 @@ public class EmpServiceImpl implements EmpService {
 
     @Autowired
     private EmpExprMapper empExprMapper;
+
+    @Autowired
+    private EmpLogMapper empLogMapper;
 
     //分页查询
     /*@Override
@@ -45,6 +48,7 @@ public class EmpServiceImpl implements EmpService {
         return new PageResult<>(total, rows);
     }*/
 
+    //分页查询
     @Override
     public PageResult<Emp> page(EmpQueryParam empQueryParam) {
         PageHelper.startPage(empQueryParam.getPage(),empQueryParam.getPageSize());
@@ -53,16 +57,23 @@ public class EmpServiceImpl implements EmpService {
         return new PageResult<Emp>(empPage.getTotal(), empPage.getResult());
     }
 
+    //新增员工
+    @Transactional//事务管理
     @Override
     public void add(Emp emp) {
-        emp.setCreateTime(LocalDateTime.now());
-        emp.setUpdateTime(LocalDateTime.now());
-        empMapper.insert(emp);
-        List<EmpExpr> empExprs = emp.getEmpExprs();
+        try {
+            emp.setCreateTime(LocalDateTime.now());
+            emp.setUpdateTime(LocalDateTime.now());
+            empMapper.insert(emp);
+            List<EmpExpr> empExprs = emp.getEmpExprs();
 
-        if(!CollectionUtils.isEmpty(empExprs)){
-            empExprs.forEach(empExpr -> empExpr.setEmpId(emp.getId()));
-            empExprMapper.insertEmpExpr(empExprs);
+            if (!CollectionUtils.isEmpty(empExprs)) {
+                empExprs.forEach(empExpr -> empExpr.setEmpId(emp.getId()));
+                empExprMapper.insertEmpExpr(empExprs);
+            }
+        } finally {
+            EmpLog empLog = new EmpLog(null, LocalDateTime.now(), emp.toString());
+            empLogMapper.insert(empLog);
         }
 
     }

@@ -15,4 +15,6 @@ public class EmpExpr {
     private LocalDate end; //结束时间
     private String company; //公司名称
     private String job; //职位
+    //构造方法
+    
 }
