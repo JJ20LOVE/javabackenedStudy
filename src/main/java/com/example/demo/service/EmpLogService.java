@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import pojo.EmpLog;
+import com.example.demo.pojo.EmpLog;
 
 public interface EmpLogService {
 

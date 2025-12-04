@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import pojo.EmpLog;
+import com.example.demo.pojo.EmpLog;
 
 @Service
 public class EmpLogServiceImpl implements EmpLogService {

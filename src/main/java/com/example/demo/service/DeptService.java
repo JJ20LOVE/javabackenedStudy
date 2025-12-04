@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import pojo.Dept;
+import com.example.demo.pojo.Dept;
 
 import java.util.List;
 

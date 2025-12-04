@@ -4,8 +4,8 @@ import com.example.demo.service.DeptService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pojo.Dept;
-import pojo.Result;
+import com.example.demo.pojo.Dept;
+import com.example.demo.pojo.Result;
 
 import java.util.List;
 

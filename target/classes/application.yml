@@ -7,6 +7,12 @@ spring:
     username: root
     password: dinghuaye521
     driver-class-name: com.mysql.cj.jdbc.Driver
+  servlet:
+    multipart:
+      #文件上传大小限制
+      max-file-size: 10MB
+      #请求大小限制
+      max-request-size: 100MB
 
 
 #mybatis的相关配置
@@ -14,3 +20,11 @@ mybatis:
   configuration:
       map-underscore-to-camel-case: true
       log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#AliyunOSS相关配置
+aliyun:
+    oss:
+      endpoint: https://oss-cn-shanghai.aliyuncs.com
+      bucket-name: dhydebucket
+      region: cn-shanghai
+

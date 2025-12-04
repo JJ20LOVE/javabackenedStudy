@@ -1,10 +1,8 @@
 package com.example.demo.mapper;
 
-import pojo.EmpLog;
+import com.example.demo.pojo.EmpLog;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 @Mapper
 public interface EmpLogMapper {

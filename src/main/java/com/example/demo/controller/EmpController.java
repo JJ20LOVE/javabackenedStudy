@@ -3,14 +3,13 @@ package com.example.demo.controller;
 import com.example.demo.service.EmpService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
-import pojo.Emp;
-import pojo.EmpQueryParam;
-import pojo.PageResult;
-import pojo.Result;
+import com.example.demo.pojo.Emp;
+import com.example.demo.pojo.EmpQueryParam;
+import com.example.demo.pojo.PageResult;
+import com.example.demo.pojo.Result;
 
-import java.time.LocalDate;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -35,5 +34,14 @@ public class EmpController {
         empService.add(emp);
         return Result.success();
     }
+
+    //批量删除员工
+    @DeleteMapping
+    public Result delete(@RequestParam List<Integer> ids){
+        log.info("批量删除员工：{}",ids);
+        empService.delete(ids);
+        return Result.success();
+    }
+
 
 }

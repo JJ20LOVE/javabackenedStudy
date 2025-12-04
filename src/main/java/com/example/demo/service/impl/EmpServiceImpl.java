@@ -3,7 +3,7 @@ package com.example.demo.service.impl;
 import com.example.demo.mapper.EmpExprMapper;
 import com.example.demo.mapper.EmpLogMapper;
 import com.example.demo.mapper.EmpMapper;
-import com.example.demo.service.EmpLogService;
+import com.example.demo.pojo.*;
 import com.example.demo.service.EmpService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
-import pojo.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -76,6 +75,14 @@ public class EmpServiceImpl implements EmpService {
             empLogMapper.insert(empLog);
         }
 
+    }
+
+    //批量删除员工
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void delete(List<Integer> ids) {
+        empMapper.delete(ids);
+        empExprMapper.delete(ids);
     }
 
 }

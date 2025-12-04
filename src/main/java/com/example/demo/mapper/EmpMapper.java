@@ -3,11 +3,9 @@ package com.example.demo.mapper;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
-import pojo.Emp;
-import pojo.EmpExpr;
-import pojo.EmpQueryParam;
+import com.example.demo.pojo.Emp;
+import com.example.demo.pojo.EmpQueryParam;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Mapper
@@ -31,4 +29,5 @@ public interface EmpMapper {
             "(#{username},#{name},#{gender},#{phone},#{job},#{salary},#{image},#{entryDate},#{deptId},#{createTime},#{updateTime})")
     void insert(Emp emp);
 
+    void delete(List<Integer> ids);
 }

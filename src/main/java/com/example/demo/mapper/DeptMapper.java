@@ -1,7 +1,7 @@
 package com.example.demo.mapper;
 
 import org.apache.ibatis.annotations.*;
-import pojo.Dept;
+import com.example.demo.pojo.Dept;
 
 import java.util.List;
 

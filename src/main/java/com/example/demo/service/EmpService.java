@@ -1,14 +1,16 @@
 package com.example.demo.service;
 
-import pojo.Emp;
-import pojo.EmpQueryParam;
-import pojo.PageResult;
+import com.example.demo.pojo.Emp;
+import com.example.demo.pojo.EmpQueryParam;
+import com.example.demo.pojo.PageResult;
 
-import java.time.LocalDate;
+import java.util.List;
 
 
 public interface EmpService {
     PageResult<Emp> page(EmpQueryParam empQueryParam);
 
     void add(Emp emp);
+
+    void delete(List<Integer> ids);
 }
