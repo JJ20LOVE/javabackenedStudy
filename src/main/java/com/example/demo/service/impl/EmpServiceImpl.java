@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -83,6 +85,27 @@ public class EmpServiceImpl implements EmpService {
     public void delete(List<Integer> ids) {
         empMapper.delete(ids);
         empExprMapper.delete(ids);
+    }
+
+    @Override
+    public Emp get(Integer id) {
+        return empMapper.get(id);
+    }
+
+    @Override
+    public void update(@RequestBody Emp emp) {
+        //设置更新时间
+        emp.setUpdateTime(LocalDateTime.now());
+        //更新员工信息
+        empMapper.update(emp);
+        //删除工作经历
+        empExprMapper.delete(Collections.singletonList(emp.getId()));
+
+        //判断是否有工作经历
+        if (!CollectionUtils.isEmpty(emp.getEmpExprs())) {
+            emp.getEmpExprs().forEach(empExpr -> empExpr.setEmpId(emp.getId()));
+            empExprMapper.insertEmpExpr(emp.getEmpExprs());
+        }
     }
 
 }

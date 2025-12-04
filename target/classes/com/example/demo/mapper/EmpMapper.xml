@@ -3,6 +3,45 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.EmpMapper">
+    <update id="update">
+        UPDATE emp
+        <set>
+            <if test="username != null">
+                username = #{username},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="gender != null">
+                gender = #{gender},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="job != null">
+                job = #{job},
+            </if>
+            <if test="salary != null">
+                salary = #{salary},
+            </if>
+            <if test="image != null">
+                image = #{image},
+            </if>
+            <if test="entryDate != null">
+                entry_date = #{entryDate},
+            </if>
+            <if test="deptId != null">
+                dept_id = #{deptId},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
     <delete id="delete">
         DELETE FROM emp WHERE id IN
         <foreach item="empId" collection="ids" separator="," open="(" close=")">
@@ -29,5 +68,47 @@
             </if>
         </where>
         ORDER BY e.update_time DESC
+    </select>
+    
+    <resultMap id="EmpWithExprResultMap" type="com.example.demo.pojo.Emp">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="name" column="name"/>
+        <result property="gender" column="gender"/>
+        <result property="phone" column="phone"/>
+        <result property="job" column="job"/>
+        <result property="salary" column="salary"/>
+        <result property="image" column="image"/>
+        <result property="entryDate" column="entry_date"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="deptName" column="dept_name"/>
+        
+        <collection property="empExprs" ofType="com.example.demo.pojo.EmpExpr">
+            <id property="id" column="expr_id"/>
+            <result property="empId" column="expr_emp_id"/>
+            <result property="begin" column="expr_begin"/>
+            <result property="end" column="expr_end"/>
+            <result property="company" column="expr_company"/>
+            <result property="job" column="expr_job"/>
+        </collection>
+    </resultMap>
+    
+    <select id="get" resultMap="EmpWithExprResultMap">
+        SELECT 
+            e.*,
+            d.name as dept_name,
+            expr.id as expr_id,
+            expr.emp_id as expr_emp_id,
+            expr.begin as expr_begin,
+            expr.end as expr_end,
+            expr.company as expr_company,
+            expr.job as expr_job
+        FROM emp e
+        LEFT JOIN dept d ON e.dept_id = d.id
+        LEFT JOIN emp_expr expr ON e.id = expr.emp_id
+        WHERE e.id = #{id}
     </select>
 </mapper>

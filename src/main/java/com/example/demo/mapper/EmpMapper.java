@@ -30,4 +30,8 @@ public interface EmpMapper {
     void insert(Emp emp);
 
     void delete(List<Integer> ids);
+
+    Emp get(Integer id);
+
+    void update(Emp emp);
 }
