@@ -5,6 +5,7 @@ import com.example.demo.mapper.EmpLogMapper;
 import com.example.demo.mapper.EmpMapper;
 import com.example.demo.pojo.*;
 import com.example.demo.service.EmpService;
+import com.example.demo.utils.JWTUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,18 @@ public class EmpServiceImpl implements EmpService {
 
     @Autowired
     private EmpLogMapper empLogMapper;
+    
+    // 员工登录
+    @Override
+    public LoginInfo login(Emp  emp) {
+       Emp e= empMapper.login(emp);
+       if(e==null)
+           return null;
+       
+       // 使用JWT工具类生成token
+       String token = JWTUtils.generateToken(e);
+       return new LoginInfo(e.getId(), e.getUsername(), e.getName(), token);
+    }
 
     //分页查询
     /*@Override

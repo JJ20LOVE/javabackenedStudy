@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import com.example.demo.pojo.Emp;
 import com.example.demo.pojo.EmpQueryParam;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -34,4 +35,7 @@ public interface EmpMapper {
     Emp get(Integer id);
 
     void update(Emp emp);
+
+    @Select("select * from emp where username=#{username} and password=#{password}")
+    Emp login(Emp emp);
 }

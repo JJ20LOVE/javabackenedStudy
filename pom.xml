@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.ddhy</groupId>
-    <artifactId>demo1</artifactId>
+    <artifactId>talisSystem</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>demo1</name>
     <description>demo1</description>
@@ -38,6 +38,13 @@
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>3.0.5</version>
+        </dependency>
+
+        <!--jwt依赖-->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
         </dependency>
 
         <dependency>
